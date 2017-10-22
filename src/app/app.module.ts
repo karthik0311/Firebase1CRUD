@@ -3,28 +3,40 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
-
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireModule } from 'angularfire2';
+import { FIREBASE_CREDENTIALS } from './firebase.credentials';
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
+import { ShoppingListPage } from '../pages/Shopping-List/Shopping-List';
+import { AddShoppingPage } from '../pages/add-shopping/add-shopping';
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    ShoppingListPage,
+    AddShoppingPage
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    //initialize angularfire with credentials from dashboards
+    
+    AngularFireModule.initializeApp(FIREBASE_CREDENTIALS),
+    //import angularfire databasemodule to use database interactions
+    AngularFireDatabaseModule,
+    
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    ShoppingListPage,
+    AddShoppingPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    
   ]
 })
 export class AppModule {}
